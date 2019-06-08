@@ -38,6 +38,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: 'BLUBBADOO!'
                 })
                 break;
+            case 'checkTestPing':
+                bot.sendMessage({
+                    to:channelID,
+                    message: toString(userID) + toString(user)
+                })
             // Just add any case commands if you want to..
          }
      }
