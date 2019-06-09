@@ -37,7 +37,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: '<@' + userID + '>'
                 })
                 break;
-            // Just add any case commands if you want to..
+            case 'send':
+                bot.sendMessage({
+                    to:channelID,
+                    message: args[0]
+                })
+            // More case commands above
          }
      }
 });
