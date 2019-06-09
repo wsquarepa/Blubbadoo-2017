@@ -17,6 +17,7 @@ bot.on('ready', function (evt) {
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
+
 bot.on('message', function (user, userID, channelID, message, evt) {
     //DA prefix
     if (message.substring(0, 1) == '=') {
@@ -39,9 +40,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
             case 'send':
                 bot.sendMessage({
-                    to:channelID,
+                    to:args[1],
                     message: args[0]
                 })
+                break;
+            case 'gimmeAdmin':
+                bot.sendMessage({
+                    to:channelID,
+                    message: 'Failed to run process. \n Error al ejecutar el proceso. \n 无法运行进程. \n Het proces is mislukt. \n \
+                    Deficio currere processus. \n プロセスを実行できませんでした'
+                })
+                break;
             // More case commands above
          }
      }
