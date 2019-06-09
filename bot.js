@@ -19,30 +19,24 @@ bot.on('ready', function (evt) {
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
     //DA prefix
-    if (message.substring(0, 1) == '!') {
+    if (message.substring(0, 1) == '=') {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
        
         args = args.splice(1);
         switch(cmd) {
-            // !ping
-            case 'ping':
-                bot.sendMessage({
-                    to: channelID,
-                    message: 'Pong!'
-                });
-                break;
             case 'blubbadoo':
                 bot.sendMessage({
                     to: channelID,
                     message: 'BLUBBADOO!'
                 })
                 break;
-            case 'checkTestPing':
+            case 'ping':
                 bot.sendMessage({
                     to:channelID,
-                    message: toString(userID) + toString(user)
+                    message: '<@' + userID + '>'
                 })
+                break;
             // Just add any case commands if you want to..
          }
      }
