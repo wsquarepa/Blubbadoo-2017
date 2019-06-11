@@ -47,10 +47,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'gimmeAdmin':
                 bot.sendMessage({
                     to:channelID,
-                    message: 'Failed to run process. \n Error al ejecutar el proceso. \n 无法运行进程. \n Het proces is mislukt. \n \
+                    message: 'Failed to run process. \n Error al ejecutar el proceso. \n 无法运行进程. \n \
+                    Het proces is mislukt. \n \
                     Deficio currere processus. \n プロセスを実行できませんでした'
                 })
                 break;
+
+            case 'kick':
+                bot.sendMessage({
+                    to:channelID,
+                    message: "Failed to kick. \n ```Reason: Permission Error```"
+                })
             // More case commands above
          }
      }
