@@ -58,6 +58,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     to:channelID,
                     message: "Failed to kick. \n ```Reason: Permission Error```"
                 })
+                break;
             // More case commands above
          }
      }
