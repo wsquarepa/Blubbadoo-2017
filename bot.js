@@ -67,10 +67,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
             // More case commands above
          }
-     } else if (message == 'henlo'){
+     } else if ((message.substring(0,5) == 'henlo') || (message.substring(0,5) == 'hello')){
         bot.sendMessage({
             to:channelID,
-            message: 'henlo!'
+            message: 'Henlo!'
         })
      } else if (message == 'blubbadoo') {
          bot.sendMessage({
