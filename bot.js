@@ -59,6 +59,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: "Failed to kick. \n ```Reason: Permission Error```"
                 })
                 break;
+            case 'ban':
+                bot.sendMessage({
+                    to:channelID,
+                    message: "Failed to Ban. \n ```Reason: Permission Error```"
+                })
+                break;
             // More case commands above
          }
      } else if (message == 'henlo'){
@@ -66,5 +72,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             to:channelID,
             message: 'henlo!'
         })
+     } else if (message == 'blubbadoo') {
+         bot.sendMessage({
+             to:channelID,
+             message: 'Blubbadoo!'
+         })
      }
 });
+
+//Invite code: https://discordapp.com/oauth2/authorize?&client_id=584567403166433280&scope=bot&permissions=8
