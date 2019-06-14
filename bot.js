@@ -39,10 +39,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 })
                 break;
             case 'send':
-                bot.sendMessage({
-                    to:args[1],
-                    message: args[0]
-                })
+                    bot.sendMessage({
+                        to:args[1],
+                        message: args[0]
+                    })
                 break;
             case 'gimmeAdmin':
                 bot.sendMessage({
@@ -61,5 +61,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 break;
             // More case commands above
          }
+     } else if (message == 'henlo'){
+        bot.sendMessage({
+            to:channelID,
+            message: 'henlo!'
+        })
      }
 });
