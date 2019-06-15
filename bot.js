@@ -88,7 +88,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         
         //18 neumerals
 
-        if (args[0].length < 18) {
+        if (!args[0].length == 18) {
             bot.sendMessage({
                 to:channelID,
                 message: 'Failed to warn user. \n ```Reason: Invalid Argument.```'
