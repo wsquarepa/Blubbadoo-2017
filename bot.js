@@ -97,6 +97,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         message: "<@" + userID + ">, you can't use that."
                     })
                 }
+                break;
             case 'warn':
                 if (userID == 509874745567870987) {
                     bot.sendMessage({
@@ -113,6 +114,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         message: "<@" + userID + ">, you can't use that."
                     })
                 }
+
+                break;
             // More case commands above
          }
      } else if ((message.substring(0,5) == 'henlo') || (message.substring(0,5) == 'hello')){
