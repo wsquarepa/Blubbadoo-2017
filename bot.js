@@ -81,6 +81,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
              to:channelID,
              message: 'Blubbadoo!'
          })
+     } else if (message.substring(0,4) == 'warn') {
+         bot.sendMessage({
+             to:channelID,
+             message= '<@' + args[0] + '>' + ' has been warned. ```Reason: ' + args[1] +' ```'
+         })
      }
 });
 
