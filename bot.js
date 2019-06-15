@@ -128,7 +128,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
              to:channelID,
              message: 'Blubbadoo!'
          })
-     } else if (message.substring(0,4) == 'warn') {
+     } else if (message.substring(0,5) == 'warn ') {
         if (userID == 509874745567870987) {
             var args = message.substring(1).split(' ');
             var cmd = args[0];
