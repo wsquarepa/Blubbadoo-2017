@@ -101,6 +101,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
              to:channelID,
              message: '<@' + args[0] + '>' + ' has been warned. \n ```Reason: ' + args[1] + ' ```'
          })
+     } else if (message.substring(0,3) == 'tis') {
+         bot.sendMessage({
+             to:channelID,
+             message: 'Yos!'
+         })
      }
 });
 
