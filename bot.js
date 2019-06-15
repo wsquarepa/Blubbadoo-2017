@@ -91,6 +91,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             message: 'You have ' + userWarnings[userID] + ' warnings.'
                         })
                     });
+                } else {
+                    bot.sendMessage({
+                        to:channelID,
+                        message: "<@" + userID + ">, you can't use that."
+                    })
                 }
             case 'warn':
                 if (userID == 509874745567870987) {
@@ -101,6 +106,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     bot.sendMessage({
                         to:channelID,
                         message: 'warn ' + args[0] + ' ' + args[1]
+                    })
+                } else {
+                    bot.sendMessage({
+                        to:channelID,
+                        message: "<@" + userID + ">, you can't use that."
                     })
                 }
             // More case commands above
@@ -115,42 +125,49 @@ bot.on('message', function (user, userID, channelID, message, evt) {
              to:channelID,
              message: 'Blubbadoo!'
          })
-     } else if (message.substring(0,4) == 'warn' && userID == 509874745567870987) {
-        var args = message.substring(1).split(' ');
-        var cmd = args[0];
-        args = args.splice(1);
-        
-        //18 neumerals
+     } else if (message.substring(0,4) == 'warn') {
+        if (userID == 509874745567870987) {
+            var args = message.substring(1).split(' ');
+            var cmd = args[0];
+            args = args.splice(1);
+            
+            //18 neumerals
 
-        if (!(args[0].length == 18)) {
+            if (!(args[0].length == 18)) {
+                bot.sendMessage({
+                    to:channelID,
+                    message: 'Failed to warn user. \n ```Reason: Invalid Argument.```'
+                })
+
+                return;
+            }
+
+            var users = {}
+
+            fs.readFile("warnings.txt", function(err, buf) {
+                var hashcode = buf.toString()
+                users = hashcode.split('\n')
+            });
+
+            console.log(users);
+
             bot.sendMessage({
                 to:channelID,
-                message: 'Failed to warn user. \n ```Reason: Invalid Argument.```'
+                message: '<@' + args[0] + '>' + ' has been warned. \n ```Reason: ' + args[1] + ' ```'
             })
 
-            return;
+            var warnedUser = args[0];
+
+            fs.appendFile("warnings.txt", (warnedUser + ':' + args[1] + '\n'), (err) => {
+                if (err) console.log(err);
+                console.log("Successfully Written to File.");
+            });
+        } else {
+            bot.sendMessage({
+                to:channelID,
+                message: "<@" + userID + ">, you can't use that."
+            })
         }
-
-        var users = {}
-
-        fs.readFile("warnings.txt", function(err, buf) {
-            var hashcode = buf.toString()
-            users = hashcode.split('\n')
-        });
-
-        console.log(users);
-
-         bot.sendMessage({
-             to:channelID,
-             message: '<@' + args[0] + '>' + ' has been warned. \n ```Reason: ' + args[1] + ' ```'
-         })
-
-         var warnedUser = args[0];
-
-         fs.appendFile("warnings.txt", (warnedUser + ':' + args[1] + '\n'), (err) => {
-            if (err) console.log(err);
-            console.log("Successfully Written to File.");
-          });
 
      } else if (message.substring(0,3) == 'tis') {
          bot.sendMessage({
