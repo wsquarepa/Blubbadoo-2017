@@ -77,19 +77,30 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     fs.readFile("warnings.txt", function(err, buf) {
                         var hashcode = buf.toString()
                         var userWarnings = {}
+                        
+                        var userWarningsAndNumber = hashcode.split('\n')
+                        
+                        console.log(hashcode.toString())
+                        console.log('userWarningsAndNumber = ' + userWarningsAndNumber)
 
-                        var user = 0
-                        var warnings = 0
-
-                        for (item in hashcode) {
-                            user, warnings = item.split(':')
-                            userWarnings[user] = warnings
+                        var user = ''
+                        var warnings = ''
+                        userWarningsAndNumber.forEach(item =>
+                            {user, warnings = item,
+                            userWarnings[user] = warnings}
+                        )
+                        
+                        if (userWarnings[userID] > 0) {
+                            bot.sendMessage({
+                                to:channelID,
+                                message: 'You have ' + userWarnings[userID] + ' warnings.'
+                            })
+                        } else {
+                            bot.sendMessage({
+                                to:channelID,
+                                message: 'You have no warnings.'
+                            })
                         }
-
-                        bot.sendMessage({
-                            to:channelID,
-                            message: 'You have ' + userWarnings[userID] + ' warnings.'
-                        })
                     });
                 } else {
                     bot.sendMessage({
@@ -123,7 +134,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             to:channelID,
             message: 'Henlo!'
         })
-     } else if (message == 'blubbadoo') {
+     } else if (message == 'Blubbadoo') {
          bot.sendMessage({
              to:channelID,
              message: 'Blubbadoo!'
