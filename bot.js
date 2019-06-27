@@ -127,6 +127,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 }
 
                 break;
+
+            case 'mute':
+                
             // More case commands above
          }
      } else if ((message.substring(0,5) == 'henlo') || (message.substring(0,5) == 'hello')){
