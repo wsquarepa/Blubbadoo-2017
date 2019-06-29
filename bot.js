@@ -76,24 +76,24 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 if (userID == 509874745567870987) {
                     fs.readFile("warnings.txt", function(err, buf) {
                         var hashcode = buf.toString()
-                        var userWarnings = {}
-                        
-                        var userWarningsAndNumber = hashcode.split('\n')
+                        var userWarnings = hashcode.split('\n')
                         
                         console.log(hashcode.toString())
-                        console.log('userWarningsAndNumber = ' + userWarningsAndNumber)
+                        console.log('userWarningsAndNumber = ' + userWarnings)
 
-                        var user = ''
-                        var warnings = ''
-                        userWarningsAndNumber.forEach(item =>
-                            {user, warnings = item,
-                            userWarnings[user] = warnings}
-                        )
-                        
-                        if (userWarnings[userID] > 0) {
+                        var len = userWarnings.length
+                        var occurences = 0
+
+                        for (i = 1; i <= len; i++) {
+                            if (userWarnings[i] == userID){
+                                occurences++
+                            }
+                        }
+                        console.log(occurences.toString())
+                        if (occurences > 0) {
                             bot.sendMessage({
                                 to:channelID,
-                                message: 'You have ' + userWarnings[userID] + ' warnings.'
+                                message: 'You have ' + occurences.toString() + ' warnings.'
                             })
                         } else {
                             bot.sendMessage({
@@ -115,6 +115,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         to:channelID,
                         message: 'Did you mean '
                     })
+                    
                     bot.sendMessage({
                         to:channelID,
                         message: 'warn ' + args[0] + ' ' + args[1]
@@ -128,63 +129,77 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
                 break;
 
-            case 'mute':
-                
+            case 'logo':
+                bot.sendMessage({
+                    to:channelID,
+                    message: 'https://cdn.discordapp.com/attachments/594272503837229092/594272672700170268/Drawing.png'
+                })
             // More case commands above
          }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////// {Non case items} /////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
      } else if ((message.substring(0,5) == 'henlo') || (message.substring(0,5) == 'hello')){
         bot.sendMessage({
             to:channelID,
             message: 'Henlo!'
         })
+///////////////////////////////////                      ////////////////////////////////////////////////////
+    
      } else if (message == 'Blubbadoo') {
          bot.sendMessage({
              to:channelID,
              message: 'Blubbadoo!'
          })
-     } else if (message.substring(0,5) == 'warn ') {
+//////////////////////////////////                      //////////////////////////////////////////////////////
+        
+     } else if (message.substring(0,4) == 'warn') {
         if (userID == 509874745567870987 || userID == 584567403166433280) {
             var args = message.substring(1).split(' ');
             var cmd = args[0];
-            args = args.splice(1);
             
-            //18 neumerals
+            if (args[1] != null) {
+                args = args.splice(1);
+                
+                //18 neumerals
 
-            if (!(args[0].length == 18)) {
+                if (!(args[0].length == 18) && (1 == 1)) {
+                    bot.sendMessage({
+                        to:channelID,
+                        message: 'Failed to warn user. \n ```Reason: Invalid Argument.```'
+                    })
+
+                    return;
+                }
+
+                var users = {}
+
+                fs.readFile("warnings.txt", function(err, buf) {
+                    var hashcode = buf.toString()
+                    users = hashcode.split('\n')
+                });
+
+                console.log(users);
+
                 bot.sendMessage({
                     to:channelID,
-                    message: 'Failed to warn user. \n ```Reason: Invalid Argument.```'
+                    message: '<@' + args[0] + '>' + ' has been warned. \n ```Reason: ' + args[1] + ' ```'
                 })
 
-                return;
+                var warnedUser = args[0];
+
+                fs.appendFile("warnings.txt", (warnedUser + '\n'), (err) => {
+                    if (err) console.log(err);
+                    console.log("Successfully Written to File.");
+                });
             }
-
-            var users = {}
-
-            fs.readFile("warnings.txt", function(err, buf) {
-                var hashcode = buf.toString()
-                users = hashcode.split('\n')
-            });
-
-            console.log(users);
-
-            bot.sendMessage({
-                to:channelID,
-                message: '<@' + args[0] + '>' + ' has been warned. \n ```Reason: ' + args[1] + ' ```'
-            })
-
-            var warnedUser = args[0];
-
-            fs.appendFile("warnings.txt", (warnedUser + ':' + args[1] + '\n'), (err) => {
-                if (err) console.log(err);
-                console.log("Successfully Written to File.");
-            });
         } else {
             bot.sendMessage({
                 to:channelID,
                 message: "<@" + userID + ">, you can't use that."
             })
         }
+///////////////////////////////////////////                           //////////////////////////////////////////////////
 
      } else if (message.substring(0,3) == 'tis') {
          bot.sendMessage({
