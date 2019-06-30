@@ -123,6 +123,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: 'https://cdn.discordapp.com/attachments/594272503837229092/594272672700170268/Drawing.png'
                 })
                 break;
+            
+            case 'restart':
+                if (userID == 509874745567870987) {
+                    process.exit()
+                }
             // More case commands above
          }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -150,36 +155,39 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 args = args.splice(1);
                 
                 //18 neumerals
+                // if (message.member.hasPermission("ADMINISTRATOR")) {
+                //     console.log("User allowed")
 
-                if (!(args[0].length == 18) && (1 == 1)) {
+                    if (!(args[0].length == 18) && (1 == 1)) {
+                        bot.sendMessage({
+                            to:channelID,
+                            message: 'Failed to warn user. \n ```Reason: Invalid Argument.```'
+                        })
+
+                        return;
+                    }
+
+                    var users = {}
+
+                    fs.readFile("warnings.txt", function(err, buf) {
+                        var hashcode = buf.toString()
+                        users = hashcode.split('\n')
+                    });
+
+                    console.log(users);
+
                     bot.sendMessage({
                         to:channelID,
-                        message: 'Failed to warn user. \n ```Reason: Invalid Argument.```'
+                        message: '<@' + args[0] + '>' + ' has been warned. \n ```Reason: ' + args[1] + ' ```'
                     })
 
-                    return;
-                }
+                    var warnedUser = args[0];
 
-                var users = {}
-
-                fs.readFile("warnings.txt", function(err, buf) {
-                    var hashcode = buf.toString()
-                    users = hashcode.split('\n')
-                });
-
-                console.log(users);
-
-                bot.sendMessage({
-                    to:channelID,
-                    message: '<@' + args[0] + '>' + ' has been warned. \n ```Reason: ' + args[1] + ' ```'
-                })
-
-                var warnedUser = args[0];
-
-                fs.appendFile("warnings.txt", (warnedUser + '\n'), (err) => {
-                    if (err) console.log(err);
-                    console.log("Successfully Written to File.");
-                });
+                    fs.appendFile("warnings.txt", (warnedUser + '\n'), (err) => {
+                        if (err) console.log(err);
+                        console.log("Successfully Written to File.");
+                    });
+                // }
             }
 ///////////////////////////////////////////                           //////////////////////////////////////////////////
 
