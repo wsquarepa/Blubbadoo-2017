@@ -20,7 +20,7 @@ bot.on('ready', function (evt) {
 });
 
 bot.on('message', function (user, userID, channelID, message, evt) {
-    //Checking if is bot himself
+    //Checking if it is bot himself
     if (userID == 584567403166433280 && message.substring(0,4) == 'warn') {
         
     } else if (userID == 584567403166433280){
@@ -73,7 +73,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 })
                 break;
             case 'warnings':
-                if (userID == 509874745567870987) {
                     fs.readFile("warnings.txt", function(err, buf) {
                         var hashcode = buf.toString()
                         var userWarnings = hashcode.split('\n')
@@ -102,15 +101,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             })
                         }
                     });
-                } else {
-                    bot.sendMessage({
-                        to:channelID,
-                        message: "<@" + userID + ">, you can't use that."
-                    })
-                }
+                
                 break;
             case 'warn':
-                if (userID == 509874745567870987) {
                     bot.sendMessage({
                         to:channelID,
                         message: 'Did you mean '
@@ -120,12 +113,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         to:channelID,
                         message: 'warn ' + args[0] + ' ' + args[1]
                     })
-                } else {
-                    bot.sendMessage({
-                        to:channelID,
-                        message: "<@" + userID + ">, you can't use that."
-                    })
-                }
+                
 
                 break;
 
@@ -134,6 +122,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     to:channelID,
                     message: 'https://cdn.discordapp.com/attachments/594272503837229092/594272672700170268/Drawing.png'
                 })
+                break;
             // More case commands above
          }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -154,7 +143,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 //////////////////////////////////                      //////////////////////////////////////////////////////
         
      } else if (message.substring(0,4) == 'warn') {
-        if (userID == 509874745567870987 || userID == 584567403166433280) {
             var args = message.substring(1).split(' ');
             var cmd = args[0];
             
@@ -193,12 +181,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     console.log("Successfully Written to File.");
                 });
             }
-        } else {
-            bot.sendMessage({
-                to:channelID,
-                message: "<@" + userID + ">, you can't use that."
-            })
-        }
 ///////////////////////////////////////////                           //////////////////////////////////////////////////
 
      } else if (message.substring(0,3) == 'tis') {
