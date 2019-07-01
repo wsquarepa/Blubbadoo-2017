@@ -176,9 +176,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
                     console.log(users);
 
+                    var reason = args[1]
+
+                    if (args[2] != null) {
+                        for (i = 2; i < args.length; i++) {
+                            reason += ' ' + args[i]
+                        }
+                    }
+
                     bot.sendMessage({
                         to:channelID,
-                        message: '<@' + args[0] + '>' + ' has been warned. \n ```Reason: ' + args[1] + ' ```'
+                        message: '<@' + args[0] + '>' + ' has been warned. \n ```Reason: ' + reason + ' ```'
                     })
 
                     var warnedUser = args[0];
