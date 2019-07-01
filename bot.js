@@ -124,9 +124,22 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 })
                 break;
             
-            case 'restart':
+            case 'clearWarnings':
                 if (userID == 509874745567870987) {
-                    process.exit()
+                    fs.writeFile("warnings.txt", (""), (err) => {
+                        if (err || args[0] != null) { 
+                            bot.sendMessage({
+                                to:channelID,
+                                message: ':x: An error occured.'
+                            })
+                        } else {
+                            bot.sendMessage({
+                                to:channelID,
+                                message: ':white_check_mark: Cleared!'
+                            })
+                        }
+                    });
+            
                 }
             // More case commands above
          }
