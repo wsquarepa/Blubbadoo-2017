@@ -147,7 +147,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////// {Non case items} /////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-     } else if ((message.substring(0,5) == 'henlo') || (message.substring(0,5) == 'hello')){
+     } else if ((message.substring(0,5) == 'henlo') || (message.substring(0,5) == 'hello') || message.substring(0,2) == 'hi'){
         bot.sendMessage({
             to:channelID,
             message: 'Henlo!'
@@ -219,6 +219,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
              to:channelID,
              message: 'Yos!'
          })
+
      }
 });
 
