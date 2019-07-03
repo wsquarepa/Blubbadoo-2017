@@ -200,7 +200,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
                     bot.sendMessage({
                         to:channelID,
-                        message: '<@' + args[0] + '>' + ' has been warned. \n ```Reason: ' + reason + ' ```'
+                        message: '<@' + args[0] + '>' + ' has been warned. \n ```Reason: ' + reason + ' ``` \n To \
+                        see how many warnings you have, use the =warnings command.'
                     })
 
                     var warnedUser = args[0];
