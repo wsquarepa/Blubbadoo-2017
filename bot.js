@@ -73,33 +73,46 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 })
                 break;
             case 'warnings':
-                    fs.readFile("warnings.txt", function(err, buf) {
-                        var hashcode = buf.toString()
-                        var userWarnings = hashcode.split('\n')
-                        
-                        console.log(hashcode.toString())
-                        console.log('userWarningsAndNumber = ' + userWarnings)
-
-                        var len = userWarnings.length
-                        var occurences = 0
-
-                        for (i = 1; i <= len; i++) {
-                            if (userWarnings[i] == userID){
-                                occurences++
+                    fs.readFile("warnings.txt", function(err1, buf1) {
+                        fs.readFile("warningReasons.txt", function(err2, buf2) {
+                            var hashcode1 = buf1.toString()
+                            var hashcode2 = buf2.toString()
+                            var userWarnings = hashcode1.split('\n')
+                            var warningReasons = hashcode2.split('\n')
+                            
+                            console.log(hashcode1.toString())
+                            console.log('userWarningsAndNumber = ' + userWarnings)
+    
+                            var len = userWarnings.length
+                            var occurences = 0
+                            var reasonString = ''
+    
+                            for (i = 0; i <= len; i++) {
+                                if (userWarnings[i] == userID){
+                                    occurences++
+                                    reasonString += warningReasons[i] + ', '
+                                }
                             }
-                        }
-                        console.log(occurences.toString())
-                        if (occurences > 0) {
-                            bot.sendMessage({
-                                to:channelID,
-                                message: 'You have ' + occurences.toString() + ' warnings.'
-                            })
-                        } else {
-                            bot.sendMessage({
-                                to:channelID,
-                                message: 'You have no warnings.'
-                            })
-                        }
+                            console.log(occurences.toString())
+                            if (occurences > 0) {
+                                if (occurences == 1) {
+                                    bot.sendMessage({
+                                        to:channelID,
+                                        message: 'You have 1 warning. The reason for it is: ' + reasonString
+                                    })
+                                } else {
+                                    bot.sendMessage({
+                                        to:channelID,
+                                        message: 'You have ' + occurences.toString() + ' warnings. The reasons for them are: ' + reasonString
+                                    })
+                                }
+                            } else {
+                                bot.sendMessage({
+                                    to:channelID,
+                                    message: 'You have no warnings.'
+                                })
+                            }
+                        });
                     });
                 
                 break;
@@ -206,6 +219,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     var warnedUser = args[0];
 
                     fs.appendFile("warnings.txt", (warnedUser + '\n'), (err) => {
+                        if (err) console.log(err);
+                        console.log("Successfully Written to File.");
+                    });
+
+                    fs.appendFile("warningReasons.txt", (reason + '\n'), (err) => {
                         if (err) console.log(err);
                         console.log("Successfully Written to File.");
                     });
