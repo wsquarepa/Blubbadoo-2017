@@ -19,6 +19,10 @@ bot.on('ready', function (evt) {
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
 
+var passcodeMode = false;
+var devMode = 'off';
+var develop = false;
+
 bot.on('message', function (user, userID, channelID, message, evt) {
     //Checking if it is bot himself
     if (userID == 584567403166433280 && message.substring(0,4) == 'warn') {
@@ -155,6 +159,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             
                 }
                 break;
+            
+            case 'develop' :
+                bot.sendMessage({
+                    to:channelID,
+                    message: 'Enter code passcode'
+                })
+                passcodeMode = true;
             // More case commands above
          }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -237,6 +248,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
              message: 'Yos!'
          })
 
+     } else if (message == 'Javascript--' && passcodeMode) {
+        if (devMode == 'off' && userID == 509874745567870987) {
+            devMode = 'on'
+            develop = true
+        } else {
+            devMode = 'off'
+            develop= false
+        }
+
+        // bot.deleteMessage({
+        //     channel: channelID,
+        //     messageID: event.d.id
+        //   })
+
+        setTimeout(function() {
+            bot.sendMessage({
+                to:channelID,
+                message: 'Developer mode ' + devMode
+            })
+          }, 1000);
      }
 });
 
