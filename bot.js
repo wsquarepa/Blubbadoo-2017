@@ -242,12 +242,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             }
 ///////////////////////////////////////////                           //////////////////////////////////////////////////
 
-     } else if (message.substring(0,3) == 'tis') {
-         bot.sendMessage({
-             to:channelID,
-             message: 'Yos!'
-         })
-
      } else if (message == 'Javascript--' && passcodeMode) {
         if (devMode == 'off' && userID == 509874745567870987) {
             devMode = 'on'
